@@ -133,6 +133,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
                         job.run();
                     } catch (Exception e) {
                         // Job的异常，这里忽略了
+                        e.printStackTrace();
                     }
                 }
             }
