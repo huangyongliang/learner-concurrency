@@ -1,5 +1,8 @@
 package com.hyl.learnerconcurrency.lock;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
+
 import com.hyl.learnerconcurrency.common.SleepUtils;
 
 /**
@@ -11,13 +14,27 @@ public class LockJustTest {
     private static volatile  boolean flag = true;
 
     public static void main(String[] args) {
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(2));
 
-        Thread thread = new Thread(new Runner(),"TestThread");
-        thread.start();
-        SleepUtils.second(1);
-        flag =false;
+        System.out.println(TimeUnit.SECONDS.toNanos(2));
 
     }
+
+    static class RunLockSupport implements Runnable{
+
+        private Thread parentThread;
+
+        public RunLockSupport(Thread parentThread){
+            this.parentThread = parentThread;
+        }
+
+        @Override
+        public void run() {
+            SleepUtils.second(4);
+            LockSupport.unpark(parentThread);
+        }
+    }
+
 
     static class Runner implements Runnable{
 

@@ -42,7 +42,7 @@ public class TwinsLock implements Lock {
 
     @Override
     public Condition newCondition() {
-        return null;
+        return sync.newCondition();
     }
 
     private static final class Sync extends AbstractQueuedSynchronizer{
@@ -74,6 +74,10 @@ public class TwinsLock implements Lock {
                     return true;
                 }
             }
+        }
+
+        final ConditionObject newCondition() {
+            return new ConditionObject();
         }
     }
 
