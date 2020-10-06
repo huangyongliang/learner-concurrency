@@ -15,12 +15,12 @@ import org.junit.Test;
  */
 public class ForkJoinTest {
 
-    final static long count = 1000;
+    final static long count = 10000;
 
     @Test
     public  void run() {
 
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        ForkJoinPool forkJoinPool = new ForkJoinPool(8*200);
 
         CountTask task = new CountTask(1,count);
 
@@ -42,7 +42,7 @@ public class ForkJoinTest {
         for (long i = 1; i <=count; i++) {
             sum+=i;
             try {
-                Thread.sleep(5);
+                Thread.sleep(2500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -75,7 +75,7 @@ public class ForkJoinTest {
                 for (long i = start; i <= end; i++) {
                     sum += i;
                     try {
-                        Thread.sleep(5);
+                        Thread.sleep(2500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
