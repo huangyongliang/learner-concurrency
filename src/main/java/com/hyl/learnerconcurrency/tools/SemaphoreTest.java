@@ -26,7 +26,7 @@ public class SemaphoreTest {
                 try {
                     s.acquire();
                     // 随机产生休眠时间
-                    int time = new Object().hashCode() >> 28;
+                    int time = new Object().hashCode() >> Integer.SIZE - 4;
                     time = time == 0 ? 1 : time;
                     System.out.println(Thread.currentThread()
                         .getName() + ": save data >> " + time);
@@ -43,7 +43,6 @@ public class SemaphoreTest {
         }
 
         threadPool.shutdown();
-
     }
 
 }
