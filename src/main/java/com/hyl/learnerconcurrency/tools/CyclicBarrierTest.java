@@ -17,20 +17,24 @@ public class CyclicBarrierTest {
     public static void main(String[] args) {
         new Thread(() -> {
 
+            int count;
             try {
-                c.await();
+                count =  c.await();
             } catch (InterruptedException | BrokenBarrierException e) {
                 e.printStackTrace();
+                count=-1;
             }
-            System.out.println(1);
+            System.out.println(Thread.currentThread().getName()+": "+count);
         }).start();
 
+        int count;
         try {
-            c.await();
+            count = c.await();
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
+            count=-1;
         }
-        System.out.println(2);
+        System.out.println(Thread.currentThread().getName()+": "+count);
     }
 
 }
