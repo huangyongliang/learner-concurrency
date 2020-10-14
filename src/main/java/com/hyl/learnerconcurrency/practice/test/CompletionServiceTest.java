@@ -1,4 +1,4 @@
-package com.hyl.learnerconcurrency.practice;
+package com.hyl.learnerconcurrency.practice.test;
 
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -49,7 +49,7 @@ public class CompletionServiceTest {
         public Integer call() throws Exception {
             int time = random.nextInt(8);
             System.out.println(Thread.currentThread().getName()+":run "+time+"s");
-            Thread.sleep(TimeUnit.SECONDS.toMillis(time));
+            TimeUnit.SECONDS.sleep(time);
             return time;
         }
     }

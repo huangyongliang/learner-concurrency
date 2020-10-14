@@ -1,4 +1,4 @@
-package com.hyl.learnerconcurrency.practice;
+package com.hyl.learnerconcurrency.practice.test;
 
 import java.util.ArrayList;
 import java.util.List;
