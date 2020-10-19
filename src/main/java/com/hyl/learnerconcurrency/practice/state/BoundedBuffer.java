@@ -9,8 +9,8 @@ package com.hyl.learnerconcurrency.practice.state;
  */
 public class BoundedBuffer<V> extends BaseBoundedBuffer<V> {
 
-    // 条件谓语：not-full (!isFull)
-    // 条件谓语：not-empty (isEmpty)
+    // 条件谓词：not-full (!isFull)
+    // 条件谓词：not-empty (isEmpty)
 
     protected BoundedBuffer(int capacity) {
         super(capacity);
