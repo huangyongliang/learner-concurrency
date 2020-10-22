@@ -1,11 +1,5 @@
 package com.hyl.learnerconcurrency.practice;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import com.hyl.learnerconcurrency.common.SleepUtils;
-
 /**
  * JustForTest
  * <p>
@@ -17,38 +11,41 @@ public class JustForTest {
 
     public static void main(String[] args)  {
 
-       final Lock  lock = new ReentrantLock();
+        Object a = new Object();
+        Object b = new Object();
 
-
-       Thread thread1 = new Thread(()->{
-
-           lock.lock();
-           try {
-               while (true){
-
-               }
-           }finally {
-               lock.unlock();
-           }
-       });
-
-        Thread thread2 = new Thread(()->{
-
-            lock.lock();
-
-            try {
-                System.out.println("获得锁");
-            }finally {
-                lock.unlock();
+        Runnable r1 = ()->{
+            synchronized (a){
+                synchronized (b){
+                    try {
+                       b.wait();
+                       a.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        });
+        };
 
+
+        Runnable r2 = ()->{
+            synchronized (a){
+                System.out.println("进入 锁 a");
+            }
+        };
+
+        Runnable r3 = ()->{
+            synchronized (b){
+                System.out.println("进入 锁 b");
+            }
+        };
+        Thread thread1 = new Thread(r1);
+        Thread thread2 = new Thread(r2);
+        Thread thread3 = new Thread(r3);
 
         thread1.start();
-
         thread2.start();
-
-
+        thread3.start();
 
     }
 

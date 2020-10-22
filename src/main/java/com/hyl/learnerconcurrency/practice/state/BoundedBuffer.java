@@ -21,15 +21,21 @@ public class BoundedBuffer<V> extends BaseBoundedBuffer<V> {
     public synchronized void put(V v) throws InterruptedException {
         while (isFull())
             wait();
+        // 条件通知，当时从 Empty 变为 非Empty 时通知
+        boolean wasEmpty = isEmpty();
         doPut(v);
-        notifyAll();
+        if (wasEmpty)
+            notifyAll();
     }
 
     public synchronized V take() throws InterruptedException {
         while (isEmpty())
             wait();
+        // 条件通知，当时从 Full 变为 非Full 时通知
+        boolean wasFull = isFull();
         V v = doTake();
-        notifyAll();
+        if (wasFull)
+            notifyAll();
         return v;
     }
 
